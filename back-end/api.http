@@ -1,0 +1,13 @@
+GET http://localhost:3001/queue
+
+####################################
+
+POST http://localhost:3001/queue
+Content-Type: application/json
+
+{
+  "name": "Pauline"
+}
+
+####################################
+DELETE http://localhost:3001/queue/1
