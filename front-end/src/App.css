@@ -1,4 +1,16 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
+@layer base {
+  html,
+  body {
+    @apply text-base sm:text-lg
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-red-400 text-white;
+  }
+}
