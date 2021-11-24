@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import { useQuery, useMutation } from "react-query";
+
+import { addToQueue } from "./Api";
 
 import QueueForm from "./QueueForm";
 import "./App.css";
@@ -6,26 +9,11 @@ import "./App.css";
 function App() {
   const [queue, setQueue] = useState([]);
 
+  const queueMutation = useMutation((name) => addToQueue(name));
+
   async function fetchQueue() {
     const res = await fetch("http://localhost:3001/queue");
     setQueue(await res.json());
-  }
-
-  async function addToQueue(name) {
-    try {
-      await fetch("http://localhost:3001/queue", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name }),
-      });
-
-      fetchQueue();
-    } catch (e) {
-      console.log(e);
-      alert("Une erreur s'est produite");
-    }
   }
 
   async function removeFromQueue(id) {
@@ -54,7 +42,7 @@ function App() {
     <div className="p-6 container mx-auto max-w-4xl text-center">
       <h1>Sensei Q</h1>
 
-      <QueueForm className="my-16" onSubmit={addToQueue} />
+      <QueueForm className="my-16" onSubmit={queueMutation.mutate} />
 
       <div className="flex flex-col items-center">
         {queue.map((q) => (
