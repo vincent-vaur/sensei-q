@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-const QueueForm = ({ onSubmit }) => {
+const QueueForm = ({ className = "", onSubmit }) => {
   const usernameInput = useRef();
 
   function onFormSubmitted(e) {
@@ -12,14 +12,21 @@ const QueueForm = ({ onSubmit }) => {
   }
 
   return (
-    <form onSubmit={onFormSubmitted}>
-      <label htmlFor="username">Ton nom</label>
+    <form onSubmit={onFormSubmitted} className={className}>
+      <label className="sr-only" htmlFor="username">
+        Ton nom
+      </label>
+
       <input
         ref={(element) => (usernameInput.current = element)}
+        placeholder="Nom + Entré pour valider"
         id="username"
         name="username"
       />
-      <button type="submit">OK</button>
+
+      <button className="btn mt-8 w-full sm:hidden" type="submit">
+        Réserver
+      </button>
     </form>
   );
 };

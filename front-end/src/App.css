@@ -1,4 +1,55 @@
-/* @tailwind base;
+@tailwind base;
 @tailwind components;
-@tailwind utilities; */
+@tailwind utilities;
 
+@layer base {
+  @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+  body {
+    @apply bg-primary text-secondary text-2xl;
+  }
+
+  h1 {
+    @apply text-6xl font-bold;
+  }
+
+  input {
+    @apply  
+      w-full
+      px-12 
+      p-8 
+      text-secondary
+      text-2xl
+      font-bold 
+      rounded-full 
+      placeholder-gray-700 
+      placeholder-opacity-30
+      bg-opacity-20 
+      bg-secondary
+
+      hover:bg-opacity-30
+      hover:placeholder-opacity-20
+
+      focus:bg-opacity-30
+      focus:placeholder-opacity-20
+
+      transition 
+      duration-300 
+      ease-out
+    ;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-secondary text-primary px-12 py-4 rounded-full transition;
+  }
+
+  .btn:hover {
+    @apply transition duration-300 ease-out ring ring-gray-100 ring-offset-4 ring-offset-primary bg-primary text-secondary;
+  }
+
+  .btn-rounded {
+    @apply p-0 font-bold h-16 w-16;
+  }
+}

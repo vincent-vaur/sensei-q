@@ -43,33 +43,31 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(fetchQueue, 5000)
+    const interval = setInterval(fetchQueue, 5000);
 
     return () => {
       clearInterval(interval);
-    }
+    };
   }, []);
 
   return (
-    <div className="container mx-auto">
+    <div className="p-6 container mx-auto max-w-4xl text-center">
       <h1>Sensei Q</h1>
 
-      <QueueForm onSubmit={addToQueue} />
+      <QueueForm className="my-16" onSubmit={addToQueue} />
 
-      {queue.map((q) => (
-        <div key={q.id}>
-          <span>
-            {q.id} : {q.name}
-          </span>
-
-          <button
-            title={`Supprimer ${q.name}`}
+      <div className="flex flex-col items-center">
+        {queue.map((q) => (
+          <a
+            href="#"
+            key={q.id}
+            className="p-8 my-4 w-1/2 rounded-full w-full bg-secondary bg-opacity-20 hover:bg-opacity-40 text-2xl md:text-4xl font-bold uppercase transition duration-300 ease-out hover:scale-110 cursor:pointer"
             onClick={() => removeFromQueue(q.id)}
           >
-            X
-          </button>
-        </div>
-      ))}
+            {q.name}
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
