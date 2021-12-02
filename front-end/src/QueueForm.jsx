@@ -18,6 +18,8 @@ const QueueForm = ({ className = "", onSubmit }) => {
       </label>
 
       <input
+        className="p-4 w-full sm:w-auto text-2xl rounded-full text-gray-600 bg-white bg-opacity-40"
+        placeholder="Saisie ton nom"
         ref={(element) => (usernameInput.current = element)}
         placeholder="Nom + Entré pour valider"
         id="username"

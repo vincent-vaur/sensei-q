@@ -1,24 +1,30 @@
-import { useState, useEffect } from "react";
-import { useQuery, useMutation } from "react-query";
-
-import { addToQueue } from "./Api";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import QueueForm from "./QueueForm";
+
 import "./App.css";
 
 function App() {
   const [queue, setQueue] = useState([]);
 
-  const queueMutation = useMutation((name) => addToQueue(name));
-
   async function fetchQueue() {
-    const res = await fetch("http://localhost:3001/queue");
-    setQueue(await res.json());
+    setQueue((await axios("http://localhost:3001/queue")).data);
+  }
+
+  async function addToQueue(name) {
+    try {
+      await axios.post("http://localhost:3001/queue", { name });
+      fetchQueue();
+    } catch (e) {
+      console.log(e);
+      alert("Une erreur s'est produite");
+    }
   }
 
   async function removeFromQueue(id) {
     try {
-      await fetch(`http://localhost:3001/queue/${id}`, { method: "delete" });
+      await axios.delete(`http://localhost:3001/queue/${id}`);
       fetchQueue();
     } catch (e) {
       console.log(e);
@@ -28,9 +34,7 @@ function App() {
 
   useEffect(() => {
     fetchQueue();
-  }, []);
 
-  useEffect(() => {
     const interval = setInterval(fetchQueue, 5000);
 
     return () => {
@@ -42,7 +46,7 @@ function App() {
     <div className="p-6 container mx-auto max-w-4xl text-center">
       <h1>Sensei Q</h1>
 
-      <QueueForm className="my-16" onSubmit={queueMutation.mutate} />
+      <QueueForm className="my-16" onSubmit={addToQueue} />
 
       <div className="flex flex-col items-center">
         {queue.map((q) => (
