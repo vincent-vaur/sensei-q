@@ -4,7 +4,6 @@ const QueueModel = require("../models/queue");
 // Retourne la file d'attente triée par date asc
 router.get("/", async (req, res) => {
   try {
-    await db.query("SELECT * FROM queue ORDER BY created")
     res.send(await QueueModel.findMany());
   } catch (e) {
     console.log(e);
