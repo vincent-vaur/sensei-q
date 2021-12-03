@@ -1,0 +1,27 @@
+GET http://localhost:3001/users
+
+####################################
+
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+  "username": "Pa",
+  "email": "pauline@toto.com",
+  "password": "j",
+  "avatar": "https://mario.wiki.gallery/images/1/11/MKT_Artwork_Pauline.png"
+}
+
+####################################
+
+PUT http://localhost:3001/users/1
+Content-Type: application/json
+
+{
+  "username": "pauline",
+  "email": "paulin",
+  "avatar": "https://mario.wiki.gallery/images/1/11/MKT_Artwork_Pauline.png"
+}
+
+####################################
+DELETE http://localhost:3001/users/5
