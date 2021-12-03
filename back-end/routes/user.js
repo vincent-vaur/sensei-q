@@ -17,8 +17,11 @@ router.post("/", async (req, res) => {
     await UserModel.create(username, email, password, avatar);
     res.status(201).send('Created');
   } catch (e) {
+    console.log(e)
     if (Array.isArray(e)) {
       res.status(400).send(e);
+    } else if (e.sqlMessage) {
+      res.status(400).send([{ message: e.sqlMessage }]);
     } else {
       res.status(500).send("Unexpected error");
     }

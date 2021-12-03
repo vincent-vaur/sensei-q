@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import QueueForm from "./QueueForm";
+import QueueForm from "./components/QueueForm";
+import UserForm from "./components/UserForm";
 
 import "./App.css";
 
@@ -45,6 +46,8 @@ function App() {
   return (
     <div className="p-6 container mx-auto max-w-4xl text-center">
       <h1>Sensei Q</h1>
+
+      <UserForm />
 
       <QueueForm className="my-16" onSubmit={addToQueue} />
 

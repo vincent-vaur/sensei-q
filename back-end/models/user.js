@@ -34,14 +34,14 @@ const create = async (username, email, password, avatar) => {
  * Met à jour un utilisateur
  */
 const update = async (id, username, email, avatar) => {
-  const { error } = schema.validate(
-    { username, email, avatar },
-    { abortEarly: false }
-  );
+  // const { error } = schema.validate(
+  //   { username, email, avatar },
+  //   { abortEarly: false }
+  // );
 
-  if (error) {
-    throw error.details;
-  }
+  // if (error) {
+  //   throw error.details;
+  // }
 
   await db.query(
     "UPDATE user SET username = ?, email = ?, avatar = ? WHERE id = ?",
