@@ -1,6 +1,32 @@
 const router = require("express").Router();
 const UserModel = require("../models/user");
 
+router.post("/login", async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await UserModel.findOneByEmail(email);
+
+    if (user) {
+      req.session.user = user;
+
+      return res.send(user);
+    }
+
+    res.status(403).send("Forbidden");
+  } catch (e) {
+    res.status(500).send("Unexpected error");
+  }
+});
+
+router.get("/logout", (req, res) => {
+  if (req.session) {
+    req.session.destroy(() => res.send());
+  } else {
+    res.send();
+  }
+})
+
 router.get("/", async (req, res) => {
   try {
     res.send(await UserModel.findMany());
@@ -15,9 +41,9 @@ router.post("/", async (req, res) => {
 
   try {
     await UserModel.create(username, email, password, avatar);
-    res.status(201).send('Created');
+    res.status(201).send("Created");
   } catch (e) {
-    console.log(e)
+    console.log(e);
     if (Array.isArray(e)) {
       res.status(400).send(e);
     } else if (e.sqlMessage) {
@@ -34,7 +60,7 @@ router.put("/:id", async (req, res) => {
 
   try {
     await UserModel.update(id, username, email, avatar);
-    res.status(204).send('Updated');
+    res.status(204).send("Updated");
   } catch (e) {
     if (Array.isArray(e)) {
       res.status(400).send(e);

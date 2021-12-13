@@ -2,13 +2,22 @@ GET http://localhost:3001/users
 
 ####################################
 
+POST http://localhost:3001/users/login
+Content-Type: application/json
+
+{
+  "email": "vincent.vaur@wildcodeschool.com"
+}
+
+####################################
+
 POST http://localhost:3001/users
 Content-Type: application/json
 
 {
-  "username": "Pa",
+  "username": "Pauline",
   "email": "pauline@toto.com",
-  "password": "j",
+  "password": "jepostepauline",
   "avatar": "https://mario.wiki.gallery/images/1/11/MKT_Artwork_Pauline.png"
 }
 

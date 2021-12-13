@@ -4,6 +4,17 @@ const Joi = require("joi");
 const schema = require("./user.schema");
 
 /**
+ * Retourne un utilisateur par son email
+ */
+const findOneByEmail = async (email) => {
+  const [[user]] = await db.query("SELECT * FROM user WHERE email = ?", [
+    email,
+  ]);
+
+  return user;
+};
+
+/**
  * Retourne tous les utilisateurs
  */
 const findMany = async () => {
@@ -25,8 +36,8 @@ const create = async (username, email, password, avatar) => {
   }
 
   await db.query(
-    "INSERT INTO user (username, email, password, avatar) VALUES (?, ?, ?, ?)",
-    [username, email, password, avatar]
+    "INSERT INTO user (username, email, password, avatar, lastConnexion) VALUES (?, ?, ?, ?, ?)",
+    [username, email, password, avatar, new Date()]
   );
 };
 
@@ -57,6 +68,7 @@ const remove = async (id) => {
 };
 
 module.exports = {
+  findOneByEmail,
   findMany,
   create,
   update,
